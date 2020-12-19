@@ -127,7 +127,7 @@ django_heroku.settings(locals())
 # CORS_URLS_REGEX = r'^/.*$'
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '', 'autodox.herokuapp.com']
 # Place static in the same location as webpack build files
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, './build', './static'),
 ]
