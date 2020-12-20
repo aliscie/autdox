@@ -1,23 +1,13 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
+  const element = document.getElementById("root")!;
   return (
     <div className="App">
+      <h1>{element.dataset.username}</h1>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          test this should be updated
-        </a>
+        <h1>ajax authenticated name should be here.</h1>
       </header>
     </div>
   );
