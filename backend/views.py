@@ -7,8 +7,13 @@ from django.views.decorators.cache import never_cache
 index = never_cache(TemplateView.as_view(template_name='index.html'))
 
 
-# def index(request, username, *args, **kwargs):
-#     # request.user
-#     return render(request, 'index.html', {'username': username})
-# #      Response({'Message': request.user}, status=200)
-#     #  never_cache(TemplateView.as_view(template_name='index.html'))
+def cookies(request):
+    # keep this for later use🔴
+    # the folowing link may helpe
+    # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Sessions#Enabling_sessions
+    request.session.set_test_cookie()
+    request.session['foo'] = 'bar'
+    print({
+        '_______request.session_______': request.session.get,
+    })
+    return HttpResponse('<h1>testig cookies</h1>')

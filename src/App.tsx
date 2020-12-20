@@ -1,8 +1,30 @@
 import React from "react";
 import "./App.css";
+import { useCookies } from "react-cookie";
 
 function App() {
+  // 🔴I can't set cookies
+  // i may need to anable cookies by the browser first.
+  // const [cookies, setCookie] = useCookies(["name"]);
   const element = document.getElementById("root")!;
+  // React.useEffect(() => {
+  //   setCookie("name", JSON.stringify({ name: "other name" }), { path: "/" });
+  // }, []);
+  // const val = JSON.stringify(cookies.name);
+  // console.log(JSON.parse(val));
+
+  // var getCookies = function () {
+  //   var pairs = document.cookie.split(";");
+  //   var cookies: any = {};
+  //   for (var i = 0; i < pairs.length; i++) {
+  //     var pair = pairs[i].split("=");
+  //     cookies[(pair[0] + "").trim()] = unescape(pair.slice(1).join("="));
+  //   }
+  //   console.log(cookies);
+  //   return cookies;
+  // };
+
+  // var myCookies = getCookies();
   return (
     <div className="App">
       <h1>{element.dataset.username}</h1>
@@ -12,7 +34,6 @@ function App() {
           login
         </a>
       )}
-
       <header className="App-header">
         <h1>ajax authenticated name should be here.</h1>
       </header>
