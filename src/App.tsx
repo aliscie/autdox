@@ -28,7 +28,6 @@ function App() {
   return (
     <div className="App">
       <h1>{element.dataset.username}</h1>
-
       {element.dataset.username !== "AnonymousUser" && (
         <form
           className="logout"
@@ -36,7 +35,7 @@ function App() {
           action={element.dataset.logouturl}
         >
           <input
-            type="hidden"
+            hidden
             name="csrfmiddlewaretoken"
             value={element.dataset.crf}
           />
@@ -45,10 +44,46 @@ function App() {
       )}
 
       {element.dataset.username === "AnonymousUser" && (
-        // 🔴 how to login/singup without leaving the page.
-        <a href="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=13721924041-tnmmge21adu3mg7k7agvcgiqs7f2trnt.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=profile&response_type=code&state=TOH6guRryjRf&flowName=GeneralOAuthFlow">
-          login
-        </a>
+        <form className="login" method="POST" action={element.dataset.loginurl}>
+          <input
+            hidden
+            name="csrfmiddlewaretoken"
+            value={element.dataset.crf}
+          />
+          <input
+            type="text"
+            name="login"
+            placeholder="Username"
+            autoComplete="username"
+            maxLength={150}
+            required={true}
+            id="id_login"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            autoComplete="current-password"
+            required={true}
+            id="id_password"
+          />
+          <input type="checkbox" name="remember" id="id_remember" />
+          <button className="primaryAction" type="submit">
+            Sign In
+          </button>
+        </form>
+      )}
+      {element.dataset.username === "AnonymousUser" && (
+        <p className="socialaccount_providers">
+          login/singup with google
+          <a
+            title="Google"
+            className="socialaccount_provider google"
+            href="/accounts/google/login/?process=login"
+          >
+            Google
+          </a>
+        </p>
       )}
       <header className="App-header">
         <h1>ajax authenticated name should be here.</h1>
