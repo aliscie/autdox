@@ -28,6 +28,22 @@ function App() {
   return (
     <div className="App">
       <h1>{element.dataset.username}</h1>
+
+      {element.dataset.username !== "AnonymousUser" && (
+        <form
+          className="logout"
+          method="post"
+          action={element.dataset.logouturl}
+        >
+          <input
+            type="hidden"
+            name="csrfmiddlewaretoken"
+            value={element.dataset.crf}
+          />
+          <button type="submit">from react logout</button>
+        </form>
+      )}
+
       {element.dataset.username === "AnonymousUser" && (
         // 🔴 how to login/singup without leaving the page.
         <a href="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=13721924041-tnmmge21adu3mg7k7agvcgiqs7f2trnt.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Faccounts%2Fgoogle%2Flogin%2Fcallback%2F&scope=profile&response_type=code&state=TOH6guRryjRf&flowName=GeneralOAuthFlow">
