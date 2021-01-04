@@ -2,14 +2,15 @@ import React from "react";
 import "./App.css";
 import Create from "./components/create";
 import lookup from "./api/api";
-import { brotliCompress } from "zlib";
+import Header from "./components/Header";
+import Paper from "./components/Paper";
 // auth credineitals not provided
 //one posisble solotion it to make ajax inside the localhost:8000
 function App() {
   // 🔴I can't set cookies
   // i may need to anable cookies by the browser first.
   // const [cookies, setCookie] = useCookies(["name"]);
-  const element = document.getElementById("root")!;
+
   // React.useEffect(() => {
   //   setCookie("name", JSON.stringify({ name: "other name" }), { path: "/" });
   // }, []);
@@ -40,73 +41,9 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <h1>{element.dataset.username}</h1>
+      <Header />
       <Create />
-      {element.dataset.username !== "AnonymousUser" && (
-        <form
-          className="logout"
-          method="post"
-          action={element.dataset.logouturl}
-        >
-          <input
-            hidden
-            name="csrfmiddlewaretoken"
-            value={element.dataset.crf}
-          />
-          <button type="submit">logout</button>
-        </form>
-      )}
-
-      {element.dataset.username === "AnonymousUser" && (
-        <form className="login" method="POST" action={element.dataset.loginurl}>
-          <input
-            hidden
-            name="csrfmiddlewaretoken"
-            value={element.dataset.crf}
-          />
-          <input
-            type="text"
-            name="login"
-            placeholder="Username"
-            autoComplete="username"
-            maxLength={150}
-            required={true}
-            id="id_login"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            autoComplete="current-password"
-            required={true}
-            id="id_password"
-          />
-          <input type="checkbox" name="remember" id="id_remember" />
-          <button className="primaryAction" type="submit">
-            Sign In
-          </button>
-        </form>
-      )}
-      {element.dataset.username === "AnonymousUser" && (
-        <p className="socialaccount_providers">
-          login/singup with google
-          <a
-            title="Google"
-            className="socialaccount_provider google"
-            href="/accounts/google/login/?process=login"
-          >
-            Google
-          </a>
-        </p>
-      )}
-      <header className="App-header">
-        {state.map((item: any) => (
-          <div style={{ border: "1px solid black" }}>
-            <h1>{item.title}</h1>
-            <h1>{item.description}</h1>
-          </div>
-        ))}
-      </header>
+      {state.map((item: any) => Paper(item))}
     </div>
   );
 }
