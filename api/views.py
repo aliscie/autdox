@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .serializers import BookSerializer
 from rest_framework import status
-
+from django.db.models import Q
 from .models import Book, Author
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -50,7 +50,7 @@ def update_book(request, book_id):
 @permission_classes([IsAuthenticated])
 def add_book(request):
     # print({"🔴You cannot access body after reading from request's data stream": request.body})
-    print({"request.data": request.data})
+
     payload = request.data
     user = request.user
     try:
@@ -59,9 +59,20 @@ def add_book(request):
             title=payload["title"],
             description=payload["description"],
             added_by=user,
-            author=author
-            # 🔴 who_can_see = payload["who_can_see"]
+            author=author,
         )
+
+        if payload["who_can_see"]:
+            print('createing a private paper')
+            book.who_can_see.add(author.id, *payload["who_can_see"].split(','))
+        else:
+            print('creatig a poblic paper.')
+            # it automaticly add 'Ali' to who_can_see
+            # so I should remove it
+            # # i don't know why it do that automaticly
+            book.who_can_see.remove().all()
+
+        book.who_can_see.add(author.id)
         serializer = BookSerializer(book)
         return JsonResponse({'books': serializer.data}, safe=False, status=status.HTTP_201_CREATED)
     except ObjectDoesNotExist as e:
@@ -72,9 +83,12 @@ def add_book(request):
 
 @api_view(["GET"])
 @csrf_exempt
-def get_books(request):
-    user = request.user.id
-    books = Book.objects.filter(added_by=user)
-    # books = Book.objects.filter(who_can_see=)
+@permission_classes([IsAuthenticated])
+def get_books(request, *args, **kwargs):
+    # 🔴 why unAuthed people can see the private data.
+    # Note: you could need to use request.user instead of id
+    books = Book.objects.filter(
+        (Q(who_can_see=None) | Q(who_can_see=request.user))
+    )
     serializer = BookSerializer(books, many=True)
     return JsonResponse({'books': serializer.data}, safe=False, status=status.HTTP_200_OK)

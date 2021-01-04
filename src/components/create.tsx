@@ -24,6 +24,14 @@ function Create() {
         }
         placeholder="description"
       />
+      <input
+        onChange={(e) =>
+          setstate((pre: any) => {
+            return { ...pre, who_can_see: e.target.value };
+          })
+        }
+        placeholder="who_can_see"
+      />
       <button
         onClick={() => {
           console.log(state);

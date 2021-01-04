@@ -23,8 +23,10 @@ class Book(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=timezone.now)
     # 🔴 who_can_see
-    # who_can_see = models.ForeignKey(
-    #     settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # who_can_see = models.ManyToManyField(
+    #     User, related_name='tweet_user', blank=True, through=PostLike)
+    who_can_see = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='tweet_user', blank=True)
 
     def __str__(self):
         return self.title
