@@ -61,8 +61,7 @@ def add_book(request):
             added_by=user,
             author=author,
         )
-
-        if payload["who_can_see"]:
+        if "who_can_see" in request.data:
             print('createing a private paper')
             book.who_can_see.add(author.id, *payload["who_can_see"].split(','))
         else:
@@ -83,7 +82,7 @@ def add_book(request):
 
 @api_view(["GET"])
 @csrf_exempt
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_books(request, *args, **kwargs):
     # 🔴 why unAuthed people can see the private data.
     # Note: you could need to use request.user instead of id

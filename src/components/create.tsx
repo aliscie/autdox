@@ -25,9 +25,13 @@ function Create() {
         placeholder="description"
       />
       <input
+        required={false}
         onChange={(e) =>
           setstate((pre: any) => {
-            return { ...pre, who_can_see: e.target.value };
+            return {
+              ...pre,
+              who_can_see: e.target.value,
+            };
           })
         }
         placeholder="who_can_see"
