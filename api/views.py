@@ -84,10 +84,8 @@ def add_book(request):
 @csrf_exempt
 # @permission_classes([IsAuthenticated])
 def get_books(request, *args, **kwargs):
-    # 🔴 why unAuthed people can see the private data.
-    # Note: you could need to use request.user instead of id
     books = Book.objects.filter(
-        (Q(who_can_see=None) | Q(who_can_see=request.user))
-    )
+        Q(who_can_see=None) | Q(who_can_see=request.user.id))
+
     serializer = BookSerializer(books, many=True)
     return JsonResponse({'books': serializer.data}, safe=False, status=status.HTTP_200_OK)
