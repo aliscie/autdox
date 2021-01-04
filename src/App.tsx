@@ -1,7 +1,10 @@
 import React from "react";
 import "./App.css";
-import { useCookies } from "react-cookie";
-
+import Create from "./components/create";
+import lookup from "./api/api";
+import { brotliCompress } from "zlib";
+// auth credineitals not provided
+//one posisble solotion it to make ajax inside the localhost:8000
 function App() {
   // 🔴I can't set cookies
   // i may need to anable cookies by the browser first.
@@ -25,9 +28,20 @@ function App() {
   // };
 
   // var myCookies = getCookies();
+  const [state, setstate] = React.useState([]);
+  const callback = (response: any, status: number) => {
+    setstate(
+      response !== null && response.books !== null ? response.books : []
+    );
+    console.log(response, status);
+  };
+  React.useEffect(() => {
+    lookup("GET", "api/", callback);
+  }, []);
   return (
     <div className="App">
       <h1>{element.dataset.username}</h1>
+      <Create />
       {element.dataset.username !== "AnonymousUser" && (
         <form
           className="logout"
@@ -39,7 +53,7 @@ function App() {
             name="csrfmiddlewaretoken"
             value={element.dataset.crf}
           />
-          <button type="submit">from react logout</button>
+          <button type="submit">logout</button>
         </form>
       )}
 
@@ -86,7 +100,12 @@ function App() {
         </p>
       )}
       <header className="App-header">
-        <h1>ajax authenticated name should be here.</h1>
+        {state.map((item: any) => (
+          <div style={{ border: "1px solid black" }}>
+            <h1>{item.title}</h1>
+            <h1>{item.description}</h1>
+          </div>
+        ))}
       </header>
     </div>
   );

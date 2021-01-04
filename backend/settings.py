@@ -32,8 +32,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
+    'api',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -139,7 +139,7 @@ STATIC_URL = '/static/'
 
 django_heroku.settings(locals())
 
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 # CORS_URLS_REGEX = r'^/.*$'
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '', 'autodox.herokuapp.com']
 # Place static in the same location as webpack build files
