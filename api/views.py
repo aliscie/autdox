@@ -18,11 +18,11 @@ def delete_book(request, book_id):
     try:
         book = Book.objects.get(added_by=user, id=book_id)
         book.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'response': Book.objects.all()}, status=status.HTTP_204_NO_CONTENT)
     except ObjectDoesNotExist as e:
         return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
     except Exception:
-        return JsonResponse({'error': status.HTTP_500_INTERNAL_SERVER_ERROR}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return JsonResponse({'Exception error': status.HTTP_500_INTERNAL_SERVER_ERROR}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(["PUT"])
@@ -76,6 +76,7 @@ def add_book(request):
         return JsonResponse({'books': serializer.data}, safe=False, status=status.HTTP_201_CREATED)
     except ObjectDoesNotExist as e:
         return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
+        # 🔴 why it rturn this deipite everything is right.
     except Exception:
         return JsonResponse({'error': 'Something terrible went wrong'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

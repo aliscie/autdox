@@ -43,7 +43,7 @@ function App() {
     <div className="App">
       <Header />
       <Create />
-      {state.map((item: any) => Paper(item))}
+      {state.map((item: any) => Paper(item, setstate))}
     </div>
   );
 }

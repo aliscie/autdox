@@ -3,19 +3,7 @@ import django_heroku
 
 from pathlib import Path
 from django.conf import settings
-# 🔴 custom rederect don't work.
-# from allauth.account.adapter import DefaultAccountAdapter
 
-# ACCOUNT_ADAPTER = 'project.users.adapter.MyAccountAdapter'
-
-
-# class MyAccountAdapter(DefaultAccountAdapter):
-
-#     def get_login_redirect_url(self, request):
-#         path = "/accounts/{username}/"
-#         return path.format(username=request.user.username)
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
