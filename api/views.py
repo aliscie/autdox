@@ -15,14 +15,23 @@ from django.core.exceptions import ObjectDoesNotExist
 @permission_classes([IsAuthenticated])
 def delete_book(request, book_id):
     user = request.user.id
-    try:
-        book = Book.objects.get(added_by=user, id=book_id)
-        book.delete()
-        return Response({'response': Book.objects.all()}, status=status.HTTP_204_NO_CONTENT)
-    except ObjectDoesNotExist as e:
-        return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
-    except Exception:
-        return JsonResponse({'Exception error': status.HTTP_500_INTERNAL_SERVER_ERROR}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    book = Book.objects.get(added_by=user, id=book_id)
+    book.delete()
+    return JsonResponse({'book_id': book_id})
+    # try:
+    #     book = Book.objects.get(added_by=user, id=book_id)
+    #     book.delete()
+    #     serializer = BookSerializer(book)
+    #     return JsonResponse({'response': book.data}, status=status.HTTP_204_NO_CONTENT)
+    # except ObjectDoesNotExist as e:
+    #     return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
+    # except Exception:
+    #     # user = request.user.id
+    #     # book = Book.objects.get(added_by=user, id=book_id)
+    #     # book.delete()
+    #     # serializer = BookSerializer(book)
+    #     # return JsonResponse({'response': serializer.data}, status=status.HTTP_204_NO_CONTENT)
+    #     return JsonResponse({'Exception error': status.HTTP_500_INTERNAL_SERVER_ERROR}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(["PUT"])

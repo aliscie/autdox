@@ -6,8 +6,9 @@ function Paper(
   setstate: any
 ) {
   const callback = (response: any, status: number) => {
-    setstate(
-      response !== null && response.books !== null ? response.books : []
+    console.log(response);
+    setstate((pre: any) =>
+      pre.filter((Item: any) => Item.id !== response.book_id)
     );
     console.log({ response: response, status: status });
   };
