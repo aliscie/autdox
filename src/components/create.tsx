@@ -1,9 +1,12 @@
 import React from "react";
 import lookup from "../api/api";
 
-function Create() {
+function Create(props: any) {
   const [state, setstate] = React.useState<any>({ title: "", description: "" });
   const callback = (response: any, status: number) => {
+    props.setData((pre: any) => {
+      return [...pre, response.books];
+    });
     console.log(response, status);
   };
   return (

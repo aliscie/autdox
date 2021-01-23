@@ -64,12 +64,12 @@ def add_book(request):
         if "who_can_see" in request.data:
             print('createing a private paper')
             book.who_can_see.add(author.id, *payload["who_can_see"].split(','))
-        else:
-            print('creatig a poblic paper.')
-            # it automaticly add 'Ali' to who_can_see
-            # so I should remove it
-            # # i don't know why it do that automaticly
-            book.who_can_see.remove().all()
+        # else:
+        #     print('creatig a poblic paper.')
+        #     # it automaticly add 'Ali' to who_can_see
+        #     # so I should remove it
+        #     # # i don't know why it do that automaticly
+        #     book.who_can_see.remove().all()
 
         book.who_can_see.add(author.id)
         serializer = BookSerializer(book)

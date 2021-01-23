@@ -32,6 +32,7 @@ function App() {
   // var myCookies = getCookies();
   const [state, setstate] = React.useState([]);
   const callback = (response: any, status: number) => {
+    console.log(response, status);
     setstate(
       response !== null && response.books !== null ? response.books : []
     );
@@ -43,7 +44,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Create />
+      <Create setData={setstate} />
       <Main />
       {state.map((item: any) => Paper(item, setstate))}
     </div>
