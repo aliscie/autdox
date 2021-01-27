@@ -5,7 +5,6 @@ import lookup from "./api/api";
 import Header from "./components/Header";
 import Paper from "./components/Paper";
 import Main from "./slate/Main";
-import Table from "./slate/Table";
 // auth credineitals not provided
 //one posisble solotion it to make ajax inside the localhost:8000
 function App() {
@@ -45,7 +44,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Table />
       <Create setData={setstate} />
       <Main />
       {state.map((item: any) => Paper(item, setstate))}
