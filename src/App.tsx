@@ -46,6 +46,7 @@ function App() {
       <Header />
       <Create setData={setstate} />
       <Main />
+
       {state.map((item: any) => Paper(item, setstate))}
     </div>
   );

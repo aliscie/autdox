@@ -5,6 +5,7 @@ import CodeElement from "./CodeElement";
 import DefaultElement from "./DefaultElement";
 import Bold from "./Bold";
 import CustomEditor from "./CustomEditor";
+import HoveringToolbar from "./HoveringToolbar";
 function Main() {
   const editor = useMemo(() => withReact(createEditor()), []);
   // https://docs.slatejs.org/walkthroughs/06-saving-to-a-database
@@ -124,6 +125,7 @@ function Main() {
         localStorage.setItem("content", content);
       }}
     >
+      <HoveringToolbar />
       {/* buttoms tool. */}
       <div>
         <button
