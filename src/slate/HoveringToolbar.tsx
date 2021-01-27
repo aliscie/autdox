@@ -5,6 +5,7 @@ import { css } from "@emotion/css";
 import { Menu, Portal } from "./components";
 import { Range } from "slate";
 import { Button, Icon } from "./components";
+import CustomEditor from "./CustomEditor";
 
 const HoveringToolbar = () => {
   const ref = useRef<HTMLDivElement | null>();
@@ -73,12 +74,18 @@ const isFormatActive = (editor: any, format: any) => {
 };
 
 const toggleFormat = (editor: any, format: any) => {
-  const isActive = isFormatActive(editor, format);
-  Transforms.setNodes(
-    editor,
-    { [format]: isActive ? null : true },
-    { match: Text.isText, split: true }
-  );
+  switch (format) {
+    case "code":
+      CustomEditor.toggleCodeBlock(editor);
+      break;
+    default:
+      const isActive = isFormatActive(editor, format);
+      Transforms.setNodes(
+        editor,
+        { [format]: isActive ? null : true },
+        { match: Text.isText, split: true }
+      );
+  }
 };
 const FormatButton = ({ format, icon }: any) => {
   const editor = useSlate();
