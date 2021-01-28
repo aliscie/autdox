@@ -137,6 +137,7 @@ function HoverToolbar() {
         <MarkButton format="italic" icon="I" />
         <MarkButton format="underline" icon="__" />
         <MarkButton format="code" icon="code" />
+        <MarkButton format="Special" icon="Special" />
         <BlockButton format="heading-one" icon="H1" />
         <BlockButton format="heading-two" icon="H2" />
         <BlockButton format="block-quote" icon="" />

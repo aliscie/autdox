@@ -1,4 +1,7 @@
 const Leaf = ({ attributes, children, leaf }: any) => {
+  if (leaf.Special) {
+    children = <span style={{ fontSize: "22px" }}>{children}</span>;
+  }
   if (leaf.bold) {
     children = <strong>{children}</strong>;
   }
