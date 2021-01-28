@@ -30,13 +30,16 @@ export const Button = React.forwardRef((
       className,
       css`
         cursor: pointer;
-        color: ${reversed
+        padding: 2px;
+        border-radius: 2px;
+        background-color: ${reversed
           ? active
-            ? "white"
+            ? "none"
             : "#aaa"
           : active
-          ? "black"
-          : "#ccc"};
+          ? "lightblue"
+          : "none"};
+        color: white;
       `
     )}
   />

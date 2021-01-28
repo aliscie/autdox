@@ -128,7 +128,7 @@ function HoverToolbar() {
           left: -10000px;
           margin-top: -6px;
           opacity: 0;
-          background-color: gray;
+          background-color: black;
           border-radius: 4px;
           transition: opacity 0.75s;
         `}
